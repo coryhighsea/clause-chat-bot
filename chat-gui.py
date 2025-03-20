@@ -86,6 +86,14 @@ class MessageWidget(QWidget):
         message_box.setText(self.message)
         message_box.setFrameShape(QTextEdit.NoFrame)
         
+        # Set minimum height for the message box to make it larger
+        message_box.setMinimumHeight(150)
+        
+        # Make the text box auto-expand to fit content
+        document_height = message_box.document().size().height()
+        if document_height > 150:
+            message_box.setMinimumHeight(min(document_height + 30, 400))
+        
         # Set font size for message box
         message_font = QFont()
         message_font.setPointSize(11)  # Increased font size
@@ -209,7 +217,7 @@ class ChatBotWindow(QMainWindow):
         self.splitter = QSplitter(Qt.Vertical)
         self.splitter.addWidget(self.scroll_area)
         self.splitter.addWidget(self.input_widget)
-        self.splitter.setSizes([500, 200])
+        self.splitter.setSizes([650, 150])
         
         self.main_layout.addWidget(self.splitter)
         self.main_widget.setLayout(self.main_layout)
